@@ -1,7 +1,8 @@
 import store from './store/configureStore';
-import { bugAdded, bugResolved, getUnresolvedBugs, bugAssignedToUser, getBugsByUser } from './store/bugs';
+import { bugAdded, bugResolved, getUnresolvedBugs, bugAssignedToUser, getBugsByUser, loadBugs, addBug } from './store/bugs';
 import { projectAdded } from './store/projects';
 import { userAdded, userRemoved, getActiveUsers } from './store/users';
+import { apiCallBegin } from './store/api';
 
 store.subscribe(() => {
   console.log("Store changed!");
@@ -18,14 +19,15 @@ store.subscribe(() => {
 //   type: "log"
 // })
 
-store.dispatch({
-  type: "apiRequest",
-  payload: {    
-    url: "/bugs2",
-    onSuccess: "bugsReceived",
-    onError: "APIRequestFailed"
-  }
-})
+store.dispatch(addBug({ description: "Buy27" })); 
+//store.dispatch(loadBugs());
+
+
+/* store.dispatch(
+  apiCallBegin({
+  url: "/bugs",
+  onSuccess: "bugs/bugsReceived",
+})) */
 
 // store.dispatch(userAdded({name: "Name 1"}));
 // store.dispatch(userAdded({name: "Name 2"}));
